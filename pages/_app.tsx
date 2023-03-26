@@ -1,6 +1,22 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import "@/styles/globals.scss";
+import type { AppProps } from "next/app";
+import Layout from "../components/Layout";
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ['latin'] })
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <style jsx global>{`
+        :root {
+          font-family: ${inter.style.fontFamily};
+          --font-family: ${inter.style.fontFamily};
+        }
+      `}</style>
+
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
+  );
 }
