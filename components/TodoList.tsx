@@ -1,7 +1,11 @@
 import { ProgressBar } from "primereact/progressbar";
+import { useState } from "react";
 import styled from "styled-components";
 import { joyrideSteps } from "../contants/joyride_steps";
 import { useJoyride } from "../context/JoyrideContext";
+import Lottie from "lottie-react";
+import successfulAnimation from "../public/lootie/successful.json";
+import { AnimatePresence, m } from "framer-motion";
 
 interface ITodoItem {
   title: string;
@@ -12,38 +16,66 @@ interface ITodoItem {
 
 const TodoList = () => {
   const { joyrideState, setJoyrideState } = useJoyride();
+  const [successfulVisible, setSuccessfulVisible] = useState(false);
+  const [allCompleted, setAllCompleted] = useState(false);
 
-  const steps: ITodoItem[] = [
+  const [steps, setSteps] = useState<ITodoItem[]>([
     {
       title: "Adspy: Identify performing social media ads",
       credits: "+ 300 credits",
       completed: true,
       onclick: () => {
         handleStartButtonClick();
+        completeStep(0);
       },
     },
     {
       title: "Shops:  Analyze shops on your market",
       credits: "+ 300 credits",
       completed: false,
+      onclick: () => {
+        completeStep(1);
+      },
     },
     {
       title: "Business Plan: Create a winning strategy for your brand",
       credits: "+ 300 credits",
       completed: false,
+      onclick: () => {
+        completeStep(2);
+      },
     },
     {
       title:
         "Influence Marketing: Connect with top influencers to grow your brand",
       credits: "+ 300 credits",
       completed: false,
+      onclick: () => {
+        completeStep(3);
+      },
     },
     {
       title: "Get ahead with Minea's Chrome extension",
       credits: "+ 100 credits",
       completed: false,
+      onclick: () => {
+        completeStep(4);
+      },
     },
-  ];
+  ]);
+
+  const completeStep = (index: number) => {
+    if (allCompleted) return;
+
+    const newSteps = [...steps];
+    newSteps[index].completed = true;
+    setSteps(newSteps);
+
+    // Check if all steps are completed
+    if (newSteps.every((step) => step.completed)) {
+      setSuccessfulVisible(true);
+    }
+  };
 
   function handleStartButtonClick() {
     console.log(joyrideState);
@@ -61,6 +93,27 @@ const TodoList = () => {
       <div className="text-xs ml-auto text-right mb-1">
         {progress.toFixed(0)} %
       </div>
+      <AnimatePresence>
+        {successfulVisible && (
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <LottieContainer>
+              <Lottie
+                animationData={successfulAnimation}
+                loop={false}
+                onComplete={() => {
+                  setSuccessfulVisible(false);
+                }}
+              />
+            </LottieContainer>
+          </m.div>
+        )}
+      </AnimatePresence>
+
       <ProgressBar value={progress} className="mb-3" />
       <ListWrapper className="shadow-2 mb-5">
         {steps.map((step, index) => (
@@ -72,7 +125,9 @@ const TodoList = () => {
           >
             <div className="flex align-items-center">
               <div
-                className={`step-number flex-shrink-0 mr-4 ${step.completed && "completed"}`}
+                className={`step-number flex-shrink-0 mr-4 ${
+                  step.completed && "completed"
+                }`}
               >
                 {step.completed ? (
                   <i className="completed pi pi-check"></i>
@@ -82,7 +137,9 @@ const TodoList = () => {
               </div>
               <span className="p-ml-2 text-sm">{step.title}</span>
             </div>
-            <div className="text-sm text-right flex-shrink-0">{step.credits}</div>
+            <div className="text-sm text-right flex-shrink-0">
+              {step.credits}
+            </div>
           </div>
         ))}
       </ListWrapper>
@@ -134,6 +191,20 @@ const ListWrapper = styled.div`
         font-size: 14px;
       }
     }
+  }
+`;
+
+const LottieContainer = styled.div`
+  > div {
+    width: 90vw;
+    height: 90vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 

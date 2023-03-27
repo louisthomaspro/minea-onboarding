@@ -4,7 +4,7 @@ import { SimpleSkeleton } from "./SimpleSkeleton";
 export default function Header(props: any) {
   return (
     <div className="shadow-2 h-5rem flex align-items-center px-4">
-      <SimpleSkeleton className="w-6 h-1rem"/>
+      <SimpleSkeleton className="w-6" style={{ height: "12px"}}/>
       <div className="ml-auto">
         <Profile>LT</Profile>
       </div>

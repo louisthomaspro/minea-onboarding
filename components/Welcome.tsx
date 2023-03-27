@@ -3,6 +3,8 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { Steps } from "primereact/steps";
 import styled from "styled-components";
+import BusinessSvg from "../public/icons/svgs/business.svg";
+import NoBusinessSvg from "../public/icons/svgs/no-business.svg";
 
 const themeList = [
   { label: "Fashion and accessories" },
@@ -54,7 +56,7 @@ export const Welcome = () => {
         model={[{ label: "" }, { label: "" }]}
         activeIndex={activeStep}
         readOnly={true}
-        className="m-auto"
+        className="mx-auto mt-5"
         style={{ maxWidth: "50px" }}
       />
     </div>
@@ -71,20 +73,29 @@ export const Welcome = () => {
       >
         {activeStep === 0 && (
           <div>
-            <h2 className="font-bold text-xl mb-6 text-center">
+            <h2 className="font-bold text-xl mb-4 text-center">
               Welcome to Minea
             </h2>
+            <h3 className="text- mb-4 text-center">
+              Do you already have a business ?
+            </h3>
             <div className="grid">
               <div className="col">
                 <BusinessButton onClick={() => setActiveStep(1)}>
-                  <div className="icon"></div>
-                  <div className="text">I already have a business</div>
+                  <div className="icon">
+                    <BusinessSvg />
+                  </div>
+                  <div className="text">Yes, and I am looking to expand</div>
                 </BusinessButton>
               </div>
               <div className="col">
                 <BusinessButton onClick={() => setActiveStep(1)}>
-                  <div className="icon"></div>
-                  <div className="text">I don’t have a business</div>
+                  <div className="icon">
+                    <NoBusinessSvg />
+                  </div>
+                  <div className="text">
+                    No, I&apos;m still in the idea phase
+                  </div>
                 </BusinessButton>
               </div>
             </div>
@@ -97,7 +108,7 @@ export const Welcome = () => {
             </h2>
             <div className="grid mb-3">
               {themeList.map((theme, index) => (
-                <div className="col" key={index}>
+                <div className="col-3" key={index}>
                   <ThemeButton onClick={hideDialog}>{theme.label}</ThemeButton>
                 </div>
               ))}
@@ -110,19 +121,33 @@ export const Welcome = () => {
 };
 
 const BusinessButton = styled.button`
-  background-color: var(--primary-color);
+  background-color: var(--background-color);
   cursor: pointer;
   height: 200px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   padding: 2rem;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+  border: 1px solid var(--background-color);
+
+  &:hover {
+    border: 1px solid var(--primary-color);
+  }
+
+  .icon {
+    width: 100px;
+  }
+
+  .text {
+    text-align: center;
+  }
 `;
 
 const ThemeButton = styled.button`
-  background-color: var(--primary-color);
+  background-color: var(--background-color);
   cursor: pointer;
   width: 100%;
   display: flex;
@@ -130,6 +155,12 @@ const ThemeButton = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  height: 100px;
+  height: 60px;
   max-width: 200px;
+  border: 1px solid var(--background-color);
+  text-align: center;
+
+  &:hover {
+    border: 1px solid var(--primary-color);
+  }
 `;

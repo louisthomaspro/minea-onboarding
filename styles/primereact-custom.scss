@@ -1,6 +1,6 @@
 // Button
 .p-button {
-  background-color: #ff8906;
+  background-color: var(--primary-color);
   border: none !important;
   box-shadow: none !important;
 
@@ -10,7 +10,7 @@
 }
 
 .p-button-text {
-  color: #1a1c23 !important;
+  color: var(--text-color) !important;
 
   &:hover {
     background-color: transparent !important;
@@ -22,7 +22,7 @@ $size: 8px;
 .p-steps-number {
   overflow: hidden;
   color: transparent !important;
-  background: #ff8906 !important;
+  background: var(--primary-color) !important;
   border: none !important;
   min-width: $size !important;
   min-height: $size !important;
@@ -43,6 +43,10 @@ $size: 8px;
 }
 
 // Dialog
+.p-dialog .p-dialog-content {
+  color: var(--text-color) !important;
+}
+
 $dialog-border-radius: 8px;
 .p-dialog-header {
   border-top-right-radius: $dialog-border-radius !important;
@@ -51,11 +55,13 @@ $dialog-border-radius: 8px;
 .p-dialog-footer {
   border-bottom-right-radius: $dialog-border-radius !important;
   border-bottom-left-radius: $dialog-border-radius !important;
+  background: white;
+  min-height: 70px;
 }
 
 .p-dialog-header {
   padding-top: 1rem !important;
-  padding-bottom: 0 !important;
+  padding-bottom: 1rem !important;
 }
 
 // Progress
@@ -64,7 +70,7 @@ $dialog-border-radius: 8px;
   border-radius: 100px;
 
   .p-progressbar-value {
-    background-color: #ff8906 !important;
+    background-color: var(--primary-color) !important;
 
     .p-progressbar-label {
       display: none;
