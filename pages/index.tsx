@@ -1,10 +1,20 @@
-import { Button } from 'primereact/button';
+import { Button } from "primereact/button";
+import { joyrideSteps } from "../contants/joyride_steps";
+import { useJoyride } from "../context/JoyrideContext";
 
 export default function Home() {
+  const { joyrideState, setJoyrideState } = useJoyride();
+
+  function handleStartButtonClick() {
+    console.log(joyrideState);
+    setJoyrideState({
+      run: true,
+      steps: joyrideSteps,
+    });
+  }
   return (
     <>
-      <h1 className="font-bold underline">Hello world!</h1>
-      <Button label="Button" />
+      <Button label="Button" onClick={handleStartButtonClick} />
     </>
   );
 }
