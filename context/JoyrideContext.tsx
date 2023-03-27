@@ -68,6 +68,7 @@ function JoyrideProvider({ children }: any) {
         stepIndex={stepIndex}
         spotlightPadding={10}
         tooltipComponent={Tooltip}
+        disableOverlayClose={true}
       />
       {children}
     </JoyrideContext.Provider>

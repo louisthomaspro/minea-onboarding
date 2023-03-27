@@ -23,7 +23,7 @@ const TodoList = () => {
     {
       title: "Adspy: Identify performing social media ads",
       credits: "+ 300 credits",
-      completed: true,
+      completed: false,
       onclick: () => {
         handleStartButtonClick();
         completeStep(0);
@@ -119,7 +119,9 @@ const TodoList = () => {
         {steps.map((step, index) => (
           <div
             key={index}
-            className="todo-item py-2 flex align-items-center justify-content-between"
+            className={`todo-item py-2 flex align-items-center justify-content-between ${
+              step.completed && "completed"
+            }`}
             style={{ width: "100%" }}
             onClick={step.onclick}
           >
@@ -135,9 +137,9 @@ const TodoList = () => {
                   <span className="text-sm">{index + 1}</span>
                 )}
               </div>
-              <span className="p-ml-2 text-sm">{step.title}</span>
+              <span className="step-title p-ml-2 text-sm">{step.title}</span>
             </div>
-            <div className="text-sm text-right flex-shrink-0">
+            <div className="step-credits text-sm text-right flex-shrink-0">
               {step.credits}
             </div>
           </div>
@@ -163,6 +165,19 @@ const ListWrapper = styled.div`
     padding-left: 14px;
     padding-right: 14px;
 
+    &.completed {
+      color: #aeaeae !important;
+      cursor: default;
+
+      .step-title, .step-credits {
+        text-decoration: line-through;
+      }
+
+      &:hover {
+        background-color: white;
+      }
+    }
+
     &:not(:last-child) {
       border-bottom: 1px solid #e5e7eb;
     }
@@ -179,6 +194,7 @@ const ListWrapper = styled.div`
       border: 1.5px solid #ccc;
       width: 30px;
       height: 30px;
+      text-decoration: none !important;
 
       &.completed {
         background-color: #ff8906;

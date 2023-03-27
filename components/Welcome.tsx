@@ -67,7 +67,6 @@ export const Welcome = () => {
         <div className="text-center">
           <Button
             label="Finish"
-            icon="pi pi-chevron-check"
             onClick={() => hideDialog()}
           />
         </div>
@@ -82,7 +81,7 @@ export const Welcome = () => {
         visible={visible}
         onHide={hideDialog}
         footer={footer}
-        style={{ minWidth: "600px", minHeight: "400px", margin: "1rem" }}
+        style={{ minWidth: "600px", margin: "1rem" }}
       >
         {!isLastStep ? (
           <>
@@ -158,7 +157,7 @@ export const Welcome = () => {
             )}
           </>
         ) : (
-          <div className="flex flex-column text-center mt-5">
+          <div className="flex flex-column text-center">
             <h2 className="font-bold text-xl mb-4 text-center" style={{ color: "var(--primary-color)"}}>
               Let’s start together !
             </h2>
