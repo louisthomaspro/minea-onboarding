@@ -33,11 +33,6 @@ export const joyrideSteps: Step[] = [
     hideFooter: true,
     placement: "right",
     spotlightClicks: true,
-    // styles: {
-    //   options: {
-    //     zIndex: 10000,
-    //   },
-    // },
     target: "#target-2",
   },
   {

@@ -5,9 +5,9 @@ import MineaLogoSvg from "../public/icons/logos/minea-logo.svg";
 export default function Header(props: any) {
   return (
     <Style className="h-screen fixed px-4 py-3">
-      <Svg>
+      <MineaLogoContainer>
         <MineaLogoSvg />
-      </Svg>
+      </MineaLogoContainer>
       <Navbar>
         <ul>
           <li>
@@ -119,6 +119,6 @@ const Navbar = styled.nav`
   }
 `;
 
-const Svg = styled.div`
+const MineaLogoContainer = styled.div`
   width: 100px;
 `;

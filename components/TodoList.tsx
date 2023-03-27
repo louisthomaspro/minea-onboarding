@@ -19,40 +19,7 @@ const TodoList = () => {
     setSuccessfulVisible,
   } = useTodo();
 
-  useEffect(() => {
-    if (steps.length === 0) {
-      setSteps([
-        {
-          title: "Adspy: Identify performing social media ads",
-          credits: "+ 300 credits",
-          completed: false,
-        },
-        {
-          title: "Shops:  Analyze shops on your market",
-          credits: "+ 300 credits",
-          completed: false,
-        },
-        {
-          title: "Business Plan: Create a winning strategy for your brand",
-          credits: "+ 300 credits",
-          completed: false,
-        },
-        {
-          title:
-            "Influence Marketing: Connect with top influencers to grow your brand",
-          credits: "+ 300 credits",
-          completed: false,
-        },
-        {
-          title: "Get ahead with Minea's Chrome extension",
-          credits: "+ 100 credits",
-          completed: false,
-        },
-      ]);
-    }
-  }, [steps]);
-
-  function handleStartButtonClick() {
+  function startJoyride() {
     setJoyrideState({
       run: true,
       steps: joyrideSteps,
@@ -96,11 +63,10 @@ const TodoList = () => {
             className={`todo-item py-2 flex align-items-center justify-content-between ${
               step.completed && "completed"
             }`}
-            style={{ width: "100%" }}
             onClick={() => {
               if (!steps[index].completed) {
                 completeStep(index);
-                if (index === 0) handleStartButtonClick();
+                if (index === 0) startJoyride();
               }
             }}
           >
@@ -143,6 +109,7 @@ const ListWrapper = styled.div`
     background-color: white;
     padding-left: 14px;
     padding-right: 14px;
+    width: 100%;
 
     &.completed {
       color: #aeaeae !important;

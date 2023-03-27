@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { todoSteps } from "../contants/todo_steps";
 
 interface ITodoContext {
   steps: ITodoItem[];
@@ -22,7 +23,8 @@ export function useTodo() {
 }
 
 function TodoProvider({ children }: any) {
-  const [steps, setSteps] = useState<ITodoItem[]>([]);
+  const [steps, setSteps] = useState<ITodoItem[]>(todoSteps);
+
   const [successfulVisible, setSuccessfulVisible] = useState(false);
   const [allCompleted, setAllCompleted] = useState(false);
 
