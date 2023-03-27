@@ -11,7 +11,7 @@ export const joyrideSteps: Step[] = [
     disableBeacon: true,
     hideCloseButton: true,
     hideFooter: true,
-    placement: "bottom",
+    placement: "right",
     spotlightClicks: true,
     // styles: {
     //   options: {

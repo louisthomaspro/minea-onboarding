@@ -1,25 +1,73 @@
-.p-component {
-  font-family: var(--font-family);
-}
+// Button
+.p-button {
+  background-color: #ff8906;
+  border: none !important;
+  box-shadow: none !important;
 
-.p-component:focus {
-  box-shadow: none;
-}
-
-// Tab view
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-  justify-content: center;
-}
-.p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  justify-content: center;
-  color: var(--text-color-2);
-
-  &:focus {
-    box-shadow: none !important;
+  &:hover {
+    background-color: #ffa949 !important;
   }
 }
-.p-tabview .p-tabview-nav li {
-  flex-grow: 1;
+
+.p-button-text {
+  color: #1a1c23 !important;
+
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+// Steps
+$size: 8px;
+.p-steps-number {
+  overflow: hidden;
+  color: transparent !important;
+  background: #ff8906 !important;
+  border: none !important;
+  min-width: $size !important;
+  min-height: $size !important;
+  width: $size !important;
+  height: $size !important;
+}
+
+.p-steps-item.p-disabled {
+  .p-steps-number {
+    background: #cfcfcf !important;
+  }
+}
+
+.p-steps-item {
+  &::before {
+    content: none !important;
+  }
+}
+
+// Dialog
+$dialog-border-radius: 8px;
+.p-dialog-header {
+  border-top-right-radius: $dialog-border-radius !important;
+  border-top-left-radius: $dialog-border-radius !important;
+}
+.p-dialog-footer {
+  border-bottom-right-radius: $dialog-border-radius !important;
+  border-bottom-left-radius: $dialog-border-radius !important;
+}
+
+.p-dialog-header {
+  padding-top: 1rem !important;
+  padding-bottom: 0 !important;
+}
+
+// Progress
+.p-progressbar {
+  height: 8px;
+  border-radius: 100px;
+
+  .p-progressbar-value {
+    background-color: #ff8906 !important;
+
+    .p-progressbar-label {
+      display: none;
+    }
+  }
 }

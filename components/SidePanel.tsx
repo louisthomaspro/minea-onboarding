@@ -77,6 +77,7 @@ export default function Header(props: any) {
 
 const Style = styled.div`
   border-right: 1px solid #e5e7eb;
+  background-color: white;
   width: inherit;
 `;
 

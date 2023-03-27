@@ -8,5 +8,11 @@
 @import "primereact-custom.scss";
 
 :root {
+  --text-color: #1a1c23;
+  --text-color-2: #8e8e8e;
+  --primary-color: #ff8906;
+
   font-size: 16px;
+  color: var(--text-color);
+  
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SimpleSkeleton } from "./SimpleSkeleton";
 
 export default function Header(props: any) {
   return (
@@ -11,10 +12,6 @@ export default function Header(props: any) {
   );
 }
 
-const SimpleSkeleton = styled.div`
-  background-color: #d9d9d9;
-`
-
 const Profile = styled.div`
   display: flex;
   align-items: center;
@@ -25,4 +22,5 @@ const Profile = styled.div`
   background-color: #f1871b;
   margin-left: auto;
   font-size: 0.85rem;
+  color: white;
 `;
