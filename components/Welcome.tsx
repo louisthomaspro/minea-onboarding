@@ -28,6 +28,7 @@ const themeList = [
 export const Welcome = () => {
   const [visible, setVisible] = useState(true);
   const [activeStep, setActiveStep] = useState(0);
+  const [isLastStep, setIsLastStep] = useState(false);
 
   const showDialog = () => {
     setVisible(true);
@@ -39,26 +40,38 @@ export const Welcome = () => {
 
   const footer = (
     <div>
-      {activeStep > 0 && (
-        <Button
-          label="Back"
-          icon="pi pi-chevron-left"
-          className="absolute left-0 bottom-0 m-3"
-          onClick={() => setActiveStep(0)}
-        />
+      {!isLastStep ? (
+        <>
+          {activeStep > 0 && (
+            <Button
+              label="Back"
+              icon="pi pi-chevron-left"
+              className="absolute left-0 bottom-0 m-4"
+              onClick={() => setActiveStep(0)}
+            />
+          )}
+          <Button
+            label="Skip"
+            className="p-button-text absolute right-0 bottom-0 m-4"
+            onClick={hideDialog}
+          />
+          <Steps
+            model={[{ label: "" }, { label: "" }]}
+            activeIndex={activeStep}
+            readOnly={true}
+            className="mx-auto mt-4"
+            style={{ maxWidth: "50px" }}
+          />
+        </>
+      ) : (
+        <div className="text-center">
+          <Button
+            label="Finish"
+            icon="pi pi-chevron-check"
+            onClick={() => hideDialog()}
+          />
+        </div>
       )}
-      <Button
-        label="Skip"
-        className="p-button-text absolute right-0 bottom-0 m-3"
-        onClick={hideDialog}
-      />
-      <Steps
-        model={[{ label: "" }, { label: "" }]}
-        activeIndex={activeStep}
-        readOnly={true}
-        className="mx-auto mt-5"
-        style={{ maxWidth: "50px" }}
-      />
     </div>
   );
 
@@ -71,47 +84,87 @@ export const Welcome = () => {
         footer={footer}
         style={{ minWidth: "600px", minHeight: "400px", margin: "1rem" }}
       >
-        {activeStep === 0 && (
-          <div>
-            <h2 className="font-bold text-xl mb-4 text-center">
-              Welcome to Minea
-            </h2>
-            <h3 className="text- mb-4 text-center">
-              Do you already have a business ?
-            </h3>
-            <div className="grid">
-              <div className="col">
-                <BusinessButton onClick={() => setActiveStep(1)}>
-                  <div className="icon">
-                    <BusinessSvg />
+        {!isLastStep ? (
+          <>
+            {activeStep === 0 && (
+              <div>
+                <h2 className="font-bold text-xl mb-4 text-center">
+                  Welcome to MINEA
+                </h2>
+                <h3 className="text- mb-4 text-center">
+                  Do you already have a business ?
+                </h3>
+                <div className="grid">
+                  <div className="col">
+                    <BusinessButton onClick={() => setActiveStep(1)}>
+                      <div className="icon">
+                        <BusinessSvg />
+                      </div>
+                      <div className="text">
+                        Yes, and I am looking to expand
+                      </div>
+                    </BusinessButton>
                   </div>
-                  <div className="text">Yes, and I am looking to expand</div>
-                </BusinessButton>
-              </div>
-              <div className="col">
-                <BusinessButton onClick={() => setActiveStep(1)}>
-                  <div className="icon">
-                    <NoBusinessSvg />
+                  <div className="col">
+                    <BusinessButton onClick={() => setActiveStep(1)}>
+                      <div className="icon">
+                        <NoBusinessSvg />
+                      </div>
+                      <div className="text">
+                        No, I&apos;m still in the idea phase
+                      </div>
+                    </BusinessButton>
                   </div>
-                  <div className="text">
-                    No, I&apos;m still in the idea phase
-                  </div>
-                </BusinessButton>
-              </div>
-            </div>
-          </div>
-        )}
-        {activeStep === 1 && (
-          <div>
-            <h2 className="font-bold text-xl mb-6 text-center">
-              Welcome to Minea
-            </h2>
-            <div className="grid mb-3">
-              {themeList.map((theme, index) => (
-                <div className="col-3" key={index}>
-                  <ThemeButton onClick={hideDialog}>{theme.label}</ThemeButton>
                 </div>
-              ))}
+              </div>
+            )}
+            {activeStep === 1 && (
+              <div>
+                <h2 className="font-bold text-xl mb-4 text-center">
+                  Welcome to MINEA
+                </h2>
+                <h3 className="text- mb-4 text-center">
+                  What are you interested in ?
+                </h3>
+                <div className="grid" style={{ maxWidth: "900px" }}>
+                  {themeList.map((theme, index) => (
+                    <div className="col-3" key={index}>
+                      <ThemeButton onClick={() => setIsLastStep(true)}>
+                        {theme.label}
+                      </ThemeButton>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {activeStep === 2 && (
+              <div>
+                <h2 className="font-bold text-xl mb-4 text-center">
+                  Welcome to MINEA
+                </h2>
+                <h3 className="text- mb-4 text-center">
+                  What are you interested in ?
+                </h3>
+                <div className="grid" style={{ maxWidth: "900px" }}>
+                  {themeList.map((theme, index) => (
+                    <div className="col-3" key={index}>
+                      <ThemeButton onClick={hideDialog}>
+                        {theme.label}
+                      </ThemeButton>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="flex flex-column text-center mt-5">
+            <h2 className="font-bold text-xl mb-4 text-center" style={{ color: "var(--primary-color)"}}>
+              Let’s start together !
+            </h2>
+            <div>
+              Join us on a quick onboarding journey to discover all the features <br/>
+              of the Minea app and unlock free credits along the way!
             </div>
           </div>
         )}
@@ -156,7 +209,6 @@ const ThemeButton = styled.button`
   justify-content: center;
   border-radius: 8px;
   height: 60px;
-  max-width: 200px;
   border: 1px solid var(--background-color);
   text-align: center;
 

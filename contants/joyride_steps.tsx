@@ -2,12 +2,32 @@ import { Step } from "react-joyride";
 
 export const joyrideSteps: Step[] = [
   {
-    content: <h2>Target 1</h2>,
+    title: "Welcome to Adspy",
+    content: (
+      <div className="text-center">
+        <div className="mb-4">
+          <i
+            className="pi pi-eye"
+            style={{
+              fontSize: "42px",
+              color: "var(--primary-color)",
+            }}
+          ></i>
+        </div>
+        <div>
+          Welcome to Adspy, a powerful tool that helps you identify
+          top-performing social media ads.
+          <br />
+          <br />
+          Let&apos;s get started!
+        </div>
+      </div>
+    ),
     placement: "center",
     target: "body",
   },
   {
-    content: <div>Target 2</div>,
+    content: <div>Let’s try with Facebook</div>,
     disableBeacon: true,
     hideCloseButton: true,
     hideFooter: true,
@@ -23,6 +43,12 @@ export const joyrideSteps: Step[] = [
   {
     target: "#target-3",
     hideBackButton: true,
-    content: <div>Target 3</div>,
+    content: (
+      <div>
+        The next steps could be : The user would be prompted to enter a search
+        query into the app&apos;s search bar. Based on their previously selected
+        preferences, the app could provide relevant search examples.
+      </div>
+    ),
   },
 ];
