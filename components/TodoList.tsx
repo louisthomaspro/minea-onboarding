@@ -1,7 +1,7 @@
 import { ProgressBar } from "primereact/progressbar";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { joyrideSteps } from "../contants/joyride_steps";
+import { joyrideSteps } from "../constants/joyride_steps";
 import { useJoyride } from "../context/JoyrideContext";
 import Lottie from "lottie-react";
 import successfulAnimation from "../public/lootie/successful.json";

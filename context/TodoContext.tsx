@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { todoSteps } from "../contants/todo_steps";
+import { todoSteps } from "../constants/todo_steps";
 
 interface ITodoContext {
   steps: ITodoItem[];
