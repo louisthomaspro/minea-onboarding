@@ -1,84 +1,58 @@
 import { ProgressBar } from "primereact/progressbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { joyrideSteps } from "../contants/joyride_steps";
 import { useJoyride } from "../context/JoyrideContext";
 import Lottie from "lottie-react";
 import successfulAnimation from "../public/lootie/successful.json";
 import { AnimatePresence, m } from "framer-motion";
-
-interface ITodoItem {
-  title: string;
-  credits: string;
-  completed: boolean;
-  onclick?: () => void;
-}
+import { useTodo } from "../context/TodoContext";
 
 const TodoList = () => {
   const { joyrideState, setJoyrideState } = useJoyride();
-  const [successfulVisible, setSuccessfulVisible] = useState(false);
-  const [allCompleted, setAllCompleted] = useState(false);
 
-  const [steps, setSteps] = useState<ITodoItem[]>([
-    {
-      title: "Adspy: Identify performing social media ads",
-      credits: "+ 300 credits",
-      completed: false,
-      onclick: () => {
-        handleStartButtonClick();
-        completeStep(0);
-      },
-    },
-    {
-      title: "Shops:  Analyze shops on your market",
-      credits: "+ 300 credits",
-      completed: false,
-      onclick: () => {
-        completeStep(1);
-      },
-    },
-    {
-      title: "Business Plan: Create a winning strategy for your brand",
-      credits: "+ 300 credits",
-      completed: false,
-      onclick: () => {
-        completeStep(2);
-      },
-    },
-    {
-      title:
-        "Influence Marketing: Connect with top influencers to grow your brand",
-      credits: "+ 300 credits",
-      completed: false,
-      onclick: () => {
-        completeStep(3);
-      },
-    },
-    {
-      title: "Get ahead with Minea's Chrome extension",
-      credits: "+ 100 credits",
-      completed: false,
-      onclick: () => {
-        completeStep(4);
-      },
-    },
-  ]);
+  const {
+    steps,
+    setSteps,
+    completeStep,
+    successfulVisible,
+    setSuccessfulVisible,
+  } = useTodo();
 
-  const completeStep = (index: number) => {
-    if (allCompleted) return;
-
-    const newSteps = [...steps];
-    newSteps[index].completed = true;
-    setSteps(newSteps);
-
-    // Check if all steps are completed
-    if (newSteps.every((step) => step.completed)) {
-      setSuccessfulVisible(true);
+  useEffect(() => {
+    if (steps.length === 0) {
+      setSteps([
+        {
+          title: "Adspy: Identify performing social media ads",
+          credits: "+ 300 credits",
+          completed: false,
+        },
+        {
+          title: "Shops:  Analyze shops on your market",
+          credits: "+ 300 credits",
+          completed: false,
+        },
+        {
+          title: "Business Plan: Create a winning strategy for your brand",
+          credits: "+ 300 credits",
+          completed: false,
+        },
+        {
+          title:
+            "Influence Marketing: Connect with top influencers to grow your brand",
+          credits: "+ 300 credits",
+          completed: false,
+        },
+        {
+          title: "Get ahead with Minea's Chrome extension",
+          credits: "+ 100 credits",
+          completed: false,
+        },
+      ]);
     }
-  };
+  }, [steps]);
 
   function handleStartButtonClick() {
-    console.log(joyrideState);
     setJoyrideState({
       run: true,
       steps: joyrideSteps,
@@ -86,7 +60,7 @@ const TodoList = () => {
   }
 
   const progress =
-    (steps.filter((step) => step.completed).length / steps.length) * 100;
+    (steps.filter((step: any) => step.completed).length / steps.length) * 100;
 
   return (
     <>
@@ -116,14 +90,19 @@ const TodoList = () => {
 
       <ProgressBar value={progress} className="mb-3" />
       <ListWrapper className="shadow-2 mb-5">
-        {steps.map((step, index) => (
+        {steps.map((step: any, index: any) => (
           <div
             key={index}
             className={`todo-item py-2 flex align-items-center justify-content-between ${
               step.completed && "completed"
             }`}
             style={{ width: "100%" }}
-            onClick={step.onclick}
+            onClick={() => {
+              if (!steps[index].completed) {
+                completeStep(index);
+                if (index === 0) handleStartButtonClick();
+              }
+            }}
           >
             <div className="flex align-items-center">
               <div
@@ -169,7 +148,8 @@ const ListWrapper = styled.div`
       color: #aeaeae !important;
       cursor: default;
 
-      .step-title, .step-credits {
+      .step-title,
+      .step-credits {
         text-decoration: line-through;
       }
 

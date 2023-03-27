@@ -38,8 +38,6 @@ function JoyrideProvider({ children }: any) {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { action, index, status, type } = data;
 
-    console.log(index);
-
     if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
       setJoyrideState({ run: false, steps: joyrideState.steps });
       setStepIndex(0);
@@ -50,7 +48,6 @@ function JoyrideProvider({ children }: any) {
 
       if (action === ACTIONS.NEXT) {
         setStepIndex(nextStepIndex);
-        console.log(nextStepIndex);
       }
     }
   };
@@ -86,7 +83,6 @@ const Tooltip = ({
   tooltipProps,
   skipProps,
 }: any) => {
-  console.log(step)
   return (
     <CustomTooltip {...tooltipProps}>
     {step.title && <h1 className="font-bold text-lg my-3 text-center">{step.title}</h1>}

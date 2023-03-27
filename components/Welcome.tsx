@@ -26,7 +26,7 @@ const themeList = [
 ];
 
 export const Welcome = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [isLastStep, setIsLastStep] = useState(false);
 

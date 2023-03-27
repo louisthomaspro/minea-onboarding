@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import JoyrideProvider from "../context/JoyrideContext";
 import { Welcome } from "../components/Welcome";
 import { LazyMotion } from "framer-motion";
+import TodoProvider from "../context/TodoContext";
 const inter = Inter({ subsets: ["latin"] });
 const loadFeatures = () =>
   import("../utils/feature").then((res) => res.default);
@@ -21,11 +22,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <Welcome />
       <LazyMotion features={loadFeatures}>
-        <JoyrideProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </JoyrideProvider>
+        <TodoProvider>
+          <JoyrideProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </JoyrideProvider>
+        </TodoProvider>
       </LazyMotion>
     </>
   );

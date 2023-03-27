@@ -2,6 +2,7 @@ import { SimpleSkeleton } from "../components/SimpleSkeleton";
 import TodoList from "../components/TodoList";
 
 export default function Home() {
+
   return (
     <>
       <div className="grid grid-nogutter">
