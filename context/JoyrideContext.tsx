@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { createContext, useContext, useState } from "react";
 import dynamic from "next/dynamic";
 import { ACTIONS, CallBackProps, EVENTS, STATUS } from "react-joyride";
 import { Button } from "primereact/button";
 import styled from "styled-components";
+import { useTodo } from "./TodoContext";
 
 const JoyrideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
 
@@ -27,7 +27,7 @@ export function useJoyride() {
 }
 
 function JoyrideProvider({ children }: any) {
-  const router = useRouter();
+  const { completeStep } = useTodo();
 
   const [joyrideState, setJoyrideState] = useState({
     run: false,
@@ -41,6 +41,10 @@ function JoyrideProvider({ children }: any) {
     if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
       setJoyrideState({ run: false, steps: joyrideState.steps });
       setStepIndex(0);
+
+      if (status === STATUS.FINISHED) {
+        completeStep(0);
+      }
     } else if (
       ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)
     ) {
@@ -85,28 +89,34 @@ const Tooltip = ({
 }: any) => {
   return (
     <CustomTooltip {...tooltipProps}>
-    {step.title && <h1 className="font-bold text-lg my-3 text-center">{step.title}</h1>}
-    <div className="content text-sm">{step.content}</div>
-    {/* {!continuous && <Button {...closeProps} label="Close"></Button>} */}
-    {step.hideFooter ? null : (
-      <div className="footer">
-        <div className="flex-1">
-          <Button
-            {...skipProps}
-            label="Skip"
-            className="p-button-text"
-          ></Button>
-        </div>
-        {/* {index > 0 && (
+      {step.title && (
+        <h1 className="font-bold text-lg my-3 text-center">{step.title}</h1>
+      )}
+      <div className="content text-sm">{step.content}</div>
+      {/* {!continuous && <Button {...closeProps} label="Close"></Button>} */}
+      {step.hideFooter ? null : (
+        <div className="footer">
+          <div className="flex-1">
+            <Button
+              {...skipProps}
+              label="Skip"
+              className="p-button-text"
+            ></Button>
+          </div>
+          {/* {index > 0 && (
           <Button {...backProps} label="Back" className="mr-2"></Button>
         )} */}
-        {continuous && <Button {...primaryProps} label={`${isLastStep ? 'Finish' : 'Next'}`}></Button>}
-      </div>
-    )}
-  </CustomTooltip>
-  )
-}
-
+          {continuous && (
+            <Button
+              {...primaryProps}
+              label={`${isLastStep ? "Finish" : "Next"}`}
+            ></Button>
+          )}
+        </div>
+      )}
+    </CustomTooltip>
+  );
+};
 
 const CustomTooltip = styled.div`
   background: #fff;

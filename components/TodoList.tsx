@@ -65,8 +65,11 @@ const TodoList = () => {
             }`}
             onClick={() => {
               if (!steps[index].completed) {
-                completeStep(index);
-                if (index === 0) startJoyride();
+                if (index === 0) {
+                  startJoyride();
+                } else {
+                  completeStep(index);
+                }
               }
             }}
           >
